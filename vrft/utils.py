@@ -14,8 +14,6 @@
 from typing import overload
 import numpy as np
 import scipy.signal as scipysig
-import logging as lg
-logger = lg.getLogger(__name__)
 
 
 def Doperator(p: int, q: int, x: float) -> np.ndarray:

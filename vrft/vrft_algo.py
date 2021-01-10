@@ -15,8 +15,6 @@ from typing import overload
 import numpy as np
 import scipy as sp
 import scipy.signal as scipysig
-import logging as lg 
-lg.basicConfig(level=lg.INFO)
 
 from vrft.iddata import iddata
 from vrft.utils import system_order, check_system, \
