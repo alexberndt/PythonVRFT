@@ -64,7 +64,7 @@ class TestReference(TestCase):
             self.assertTrue(np.isclose(r[i], u[i]))
 
 
-    def test_virtual_reference_2_order_system(self):
+    def test_virtual_reference_2_order_system_1(self):
         t_start = 0
         t_end = 10
         t_step = 1e-2
@@ -82,12 +82,12 @@ class TestReference(TestCase):
             self.assertTrue(np.isclose(r[i], u[i]))
 
      
-    def test_virtual_reference_complex_system_1(self):
+    def test_virtual_reference_2_order_system_2(self):
         t_start = 0
         t_end = 10
         t_step = 1e-2
         t = np.arange(t_start, t_end, t_step)
-        u = np.ones(len(t)).tolist()
+        u = np.random.normal(size=len(t))
 
         omega = 10
         alpha = np.exp(-t_step*omega)
@@ -95,7 +95,6 @@ class TestReference(TestCase):
         den = [1, -2*alpha, alpha**2, 0]
 
         sys = scipysig.TransferFunction(num, den, dt=t_step)
-        u = np.random.normal(size=len(t))
         t, y = scipysig.dlsim(sys, u, t)
         data = iddata(y,u,t_step,[0,0,0])
         r, _ = virtual_reference(data, num, den)
@@ -103,22 +102,30 @@ class TestReference(TestCase):
             self.assertTrue(np.isclose(r[i], u[i]))
 
 
-    def test_virtual_reference_complex_system_2(self):
+    def test_virtual_reference_4_order_system_1(self):
         t_start = 0
         t_end = 10
         t_step = 1e-2
         t = np.arange(t_start, t_end, t_step)
-        u = np.ones(len(t)).tolist()
+        u = np.random.normal(size=len(t))
 
-        num = [0.28261, 0.50666]
+        num = [ 0.50666]
         den = [1, -1.41833, 1.58939, -1.31608, 0.88642]
         sys = scipysig.TransferFunction(num, den, dt=t_step)
-        u = np.random.normal(size=len(t))
+
+        # z,p,k = scipysig.tf2zpk(num, den)
+        # print("zeroes: ")
+        # for zero in z:
+        #     print("|{}| = {}".format(zero, np.abs(zero)))
+        # print("poles: ")
+        # for pole in p:
+        #     print("|{}| = {}".format(pole, np.abs(pole)))
+
         t, y = scipysig.dlsim(sys, u, t)
-        data = iddata(y,u,t_step,[0,0,0])
+        data = iddata(y,u,t_step,[0,0,0,0])
         r, _ = virtual_reference(data, num, den)
         for i in range(len(r)):
-            print(" r[{}] = {} \t u[{}] = {}".format(i,r[i],i,u[i]))
+            # print(" r[{}] = {} \t u[{}] = {}".format(i,r[i],i,u[i]))
             self.assertTrue(np.isclose(r[i], u[i]))
         
 
