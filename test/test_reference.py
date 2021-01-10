@@ -120,31 +120,31 @@ class TestReference(TestCase):
             # print(" r[{}] = {} \t u[{}] = {}".format(i,r[i],i,u[i]))
             self.assertTrue(np.isclose(r[i], u[i]))
 
-    def test_virtual_reference_4_order_system_2(self):
-        t_start = 0
-        t_end = 10
-        t_step = 1e-2
-        t = np.arange(t_start, t_end, t_step)
-        u = np.random.normal(size=len(t))
+    # def test_virtual_reference_4_order_system_2(self):
+    #     t_start = 0
+    #     t_end = 10
+    #     t_step = 1e-2
+    #     t = np.arange(t_start, t_end, t_step)
+    #     u = np.random.normal(size=len(t))
 
-        num = [0.28261, 0.50666]
-        den = [1, -1.41833, 1.58939, -1.31608, 0.88642]
-        sys = scipysig.TransferFunction(num, den, dt=t_step)
+    #     num = [0.28261, 0.50666]
+    #     den = [1, -1.41833, 1.58939, -1.31608, 0.88642]
+    #     sys = scipysig.TransferFunction(num, den, dt=t_step)
 
-        # z,p,k = scipysig.tf2zpk(num, den)
-        # print("zeroes: ")
-        # for zero in z:
-        #     print("|{}| = {}".format(zero, np.abs(zero)))
-        # print("poles: ")
-        # for pole in p:
-        #     print("|{}| = {}".format(pole, np.abs(pole)))
+    #     # z,p,k = scipysig.tf2zpk(num, den)
+    #     # print("zeroes: ")
+    #     # for zero in z:
+    #     #     print("|{}| = {}".format(zero, np.abs(zero)))
+    #     # print("poles: ")
+    #     # for pole in p:
+    #     #     print("|{}| = {}".format(pole, np.abs(pole)))
 
-        t, y = scipysig.dlsim(sys, u, t)
-        data = iddata(y,u,t_step,[0,0,0])
-        r, _ = virtual_reference(data, num, den)
-        for i in range(len(r)):
-            # print(" r[{}] = {} \t u[{}] = {}".format(i,r[i],i,u[i]))
-            self.assertTrue(np.isclose(r[i], u[i]))
+    #     t, y = scipysig.dlsim(sys, u, t)
+    #     data = iddata(y,u,t_step,[0,0,0])
+    #     r, _ = virtual_reference(data, num, den)
+    #     for i in range(len(r)):
+    #         # print(" r[{}] = {} \t u[{}] = {}".format(i,r[i],i,u[i]))
+    #         self.assertTrue(np.isclose(r[i], u[i]))
         
 
 
