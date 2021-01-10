@@ -38,6 +38,7 @@ def virtual_reference(data: iddata, L: scipysig.dlti) -> np.ndarray:
     """
     return virtual_reference(data, L.num, L.den)
 
+
 def virtual_reference(data: iddata, num: np.ndarray, den: np.ndarray) -> np.ndarray:
     """Compute virtual reference signal by performing signal deconvolution
     Parameters
@@ -85,9 +86,11 @@ def virtual_reference(data: iddata, num: np.ndarray, den: np.ndarray) -> np.ndar
 
     return r, len(r)
 
+
 def compute_vrft_loss(data: iddata, phi: np.ndarray, theta: np.ndarray) -> float:
     z = np.dot(phi, theta.T).flatten()
     return np.linalg.norm(data.u[:z.size] - z) ** 2 / z.size
+
 
 def calc_minimum(u: np.ndarray, phi1: np.ndarray,
                  phi2: np.ndarray = None) -> np.ndarray:
@@ -108,6 +111,7 @@ def calc_minimum(u: np.ndarray, phi1: np.ndarray,
     """
     phi2 = phi1 if phi2 is None else phi2
     return sp.linalg.solve(phi2.T @ phi1, phi2.T.dot(u))
+
 
 def control_response(data: iddata, error: np.ndarray, control: list) -> np.ndarray:
     t_step = data.ts
